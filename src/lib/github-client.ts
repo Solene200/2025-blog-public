@@ -160,7 +160,7 @@ export async function getInstallationId(jwt: string, owner: string, repo: string
 	}
 }
 
-export async function createInstallationToken(jwt: string, installationId: number): Promise<string> {
+export async function createInstallationToken(jwt: string, installationId: number): Promise<{ token: string; expiresAt: string }> {
 	const res = await fetch(`${GH_API}/app/installations/${installationId}/access_tokens`, {
 		method: 'POST',
 		headers: {
@@ -173,7 +173,10 @@ export async function createInstallationToken(jwt: string, installationId: numbe
 	if (res.status === 422) handle422Error()
 	if (!res.ok) throw new Error(`create token failed: ${res.status}`)
 	const data = await res.json()
-	return data.token as string
+	return {
+		token: data.token as string,
+		expiresAt: data.expires_at as string
+	}
 }
 
 export async function getFileSha(token: string, owner: string, repo: string, path: string, branch: string): Promise<string | undefined> {

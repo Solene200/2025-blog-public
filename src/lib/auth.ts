@@ -6,20 +6,43 @@ import { decrypt,encrypt } from './aes256-util'
 
 const GITHUB_TOKEN_CACHE_KEY = 'github_token'
 const GITHUB_PEM_CACHE_KEY = 'p_info'
+const TOKEN_EXPIRY_BUFFER_MS = 60 * 1000
+
+type CachedTokenPayload = {
+	token: string
+	expiresAt: string
+}
 
 function getTokenFromCache(): string | null {
 	if (typeof sessionStorage === 'undefined') return null
 	try {
-		return sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
+		const raw = sessionStorage.getItem(GITHUB_TOKEN_CACHE_KEY)
+		if (!raw) return null
+
+		const parsed = JSON.parse(raw) as Partial<CachedTokenPayload>
+		if (!parsed.token || !parsed.expiresAt) {
+			clearTokenCache()
+			return null
+		}
+
+		const expiresAt = Date.parse(parsed.expiresAt)
+		if (!Number.isFinite(expiresAt) || expiresAt <= Date.now() + TOKEN_EXPIRY_BUFFER_MS) {
+			clearTokenCache()
+			return null
+		}
+
+		return parsed.token
 	} catch {
+		clearTokenCache()
 		return null
 	}
 }
 
-function saveTokenToCache(token: string): void {
+function saveTokenToCache(token: string, expiresAt: string): void {
 	if (typeof sessionStorage === 'undefined') return
 	try {
-		sessionStorage.setItem(GITHUB_TOKEN_CACHE_KEY, token)
+		const payload: CachedTokenPayload = { token, expiresAt }
+		sessionStorage.setItem(GITHUB_TOKEN_CACHE_KEY, JSON.stringify(payload))
 	} catch (error) {
 		console.error('Failed to save token to cache:', error)
 	}
@@ -101,9 +124,9 @@ export async function getAuthToken(): Promise<string> {
 	const installationId = await getInstallationId(jwt, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO)
 
 	toast.info('正在创建安装令牌...')
-	const token = await createInstallationToken(jwt, installationId)
+	const { token, expiresAt } = await createInstallationToken(jwt, installationId)
 
-	saveTokenToCache(token)
+	saveTokenToCache(token, expiresAt)
 
 	return token
 }
