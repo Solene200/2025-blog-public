@@ -31,48 +31,132 @@ export function signAppJwt(appId: string, privateKeyPem: string): string {
 	return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), prv)
 }
 
+/**
+ * 获取 GitHub App 在指定仓库的安装 ID
+ * @param jwt - GitHub App 的 JWT
+ * @param owner - 仓库所有者
+ * @param repo - 仓库名称
+ * @returns 安装 ID
+ * @throws 详细的错误信息
+ */
 export async function getInstallationId(jwt: string, owner: string, repo: string): Promise<number> {
+	// 验证输入参数
+	if (!jwt || typeof jwt !== 'string') {
+		throw new Error('JWT token is required and must be a string')
+	}
+	if (!owner || typeof owner !== 'string') {
+		throw new Error('Owner is required and must be a string')
+	}
+	if (!repo || typeof repo !== 'string') {
+		throw new Error('Repo is required and must be a string')
+	}
+
+	const GH_API = process.env.GITHUB_API_URL || 'https://api.github.com'
+	const url = `${GH_API}/repos/${owner}/${repo}/installation`
+	
+	console.log(`[GitHub API] 获取安装ID: ${owner}/${repo}`)
+	console.log(`[GitHub API] 请求URL: ${url}`)
+	console.log(`[GitHub API] JWT 前10位: ${jwt.substring(0, 10)}...`)
+
 	try {
-		const url = `${GH_API}/repos/${owner}/${repo}/installation`
-		console.log('Fetching:', url)  // 调试用
-		
+		const startTime = Date.now()
 		const res = await fetch(url, {
+			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${jwt}`,
 				Accept: 'application/vnd.github+json',
-				'X-GitHub-Api-Version': '2022-11-28'
-			}
+				'X-GitHub-Api-Version': '2022-11-28',
+				'User-Agent': 'Your-App-Name/1.0.0'
+			},
+			// 可选：设置超时
+			signal: AbortSignal.timeout(10000) // 10秒超时
 		})
+
+		const responseTime = Date.now() - startTime
+		console.log(`[GitHub API] 响应时间: ${responseTime}ms, 状态码: ${res.status}`)
+
+		// 解析响应体，但先不转为 JSON，保留原始文本
+		const responseText = await res.text()
 		
-		// 更详细的错误信息
-		console.log('Response status:', res.status)
-		console.log('Response headers:', res.headers)
-		
-		if (res.status === 401) {
-			console.error('401 Unauthorized - JWT可能无效或过期')
-			handle401Error()
+		// 处理不同的 HTTP 状态码
+		switch (res.status) {
+			case 200:
+				// 成功
+				try {
+					const data = JSON.parse(responseText)
+					console.log(`[GitHub API] 安装ID: ${data.id}, 应用: ${data.app_slug}`)
+					return data.id
+				} catch (jsonError) {
+					console.error('[GitHub API] JSON 解析失败:', jsonError)
+					console.error('[GitHub API] 原始响应:', responseText)
+					throw new Error(`GitHub API 返回了无效的 JSON: ${jsonError.message}`)
+				}
+				
+			case 401:
+				console.error('[GitHub API] 401 Unauthorized - 认证失败')
+				console.error('[GitHub API] 响应内容:', responseText)
+				throw new Error(`GitHub App 认证失败: JWT 可能已过期或无效。请检查你的私钥和 App ID。详细: ${responseText}`)
+				
+			case 403:
+				console.error('[GitHub API] 403 Forbidden - 权限不足')
+				console.error('[GitHub API] 响应内容:', responseText)
+				const rateLimit = res.headers.get('x-ratelimit-remaining')
+				if (rateLimit === '0') {
+					throw new Error('GitHub API 调用次数已达上限')
+				}
+				throw new Error(`没有权限访问仓库 ${owner}/${repo}。请确认 GitHub App 已安装。`)
+				
+			case 404:
+				console.error('[GitHub API] 404 Not Found - 仓库不存在')
+				throw new Error(`仓库 ${owner}/${repo} 不存在，或者 GitHub App 未安装到该仓库。`)
+				
+			case 422:
+				console.error('[GitHub API] 422 Unprocessable Entity - 参数错误')
+				console.error('[GitHub API] 响应内容:', responseText)
+				throw new Error(`请求参数无效: ${responseText}`)
+				
+			default:
+				// 其他错误
+				console.error(`[GitHub API] 未知错误: ${res.status}`)
+				console.error('[GitHub API] 响应头:', Object.fromEntries(res.headers.entries()))
+				console.error('[GitHub API] 响应体:', responseText)
+				
+				let errorMessage = `GitHub API 错误: ${res.status} ${res.statusText}`
+				try {
+					const errorData = JSON.parse(responseText)
+					if (errorData.message) {
+						errorMessage += ` - ${errorData.message}`
+					}
+					if (errorData.documentation_url) {
+						errorMessage += `\n文档: ${errorData.documentation_url}`
+					}
+				} catch {
+					// 如果响应不是 JSON，使用原始文本
+					errorMessage += `\n响应: ${responseText.substring(0, 200)}`
+				}
+				
+				throw new Error(errorMessage)
 		}
-		if (res.status === 404) {
-			console.error('404 Not Found - 仓库不存在或应用未安装')
-			throw new Error(`GitHub App is not installed on ${owner}/${repo}`)
-		}
-		if (res.status === 422) {
-			handle422Error()
-		}
 		
-		if (!res.ok) {
-			const errorText = await res.text()
-			console.error('Error response:', errorText)
-			throw new Error(`installation lookup failed: ${res.status} - ${errorText}`)
+	} catch (error: any) {
+		// 处理网络错误、超时等
+		console.error('[GitHub API] 请求失败:', error)
+		
+		if (error.name === 'AbortError' || error.name === 'TimeoutError') {
+			throw new Error(`GitHub API 请求超时 (10秒)，请检查网络连接`)
 		}
 		
-		const data = await res.json()
-		console.log('Installation data:', data)
-		return data.id
+		if (error.name === 'TypeError' && error.message.includes('fetch')) {
+			throw new Error(`网络请求失败: ${error.message}，请检查网络连接`)
+		}
 		
-	} catch (error) {
-		console.error('getInstallationId failed:', error)
-		throw error
+		// 如果是我们已经处理过的错误，直接抛出
+		if (error.message.includes('GitHub App')) {
+			throw error
+		}
+		
+		// 其他未处理的错误
+		throw new Error(`获取安装ID失败: ${error.message || '未知错误'}`)
 	}
 }
 
