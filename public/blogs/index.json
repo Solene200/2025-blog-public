@@ -9,109 +9,6 @@
     "category": ""
   },
   {
-    "slug": "rendering-spline",
-    "title": "渲染类似 Spline 的清新风格",
-    "tags": [
-      "Threejs"
-    ],
-    "date": "2026-03-30T16:30",
-    "summary": "渲染真实不容易啊",
-    "cover": "/blogs/rendering-spline/5f7521ad156f2439.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "live2d-note",
-    "title": "做一个 Live2D",
-    "tags": [
-      "学习",
-      "Live2D",
-      "笔记"
-    ],
-    "date": "2026-02-28T14:40",
-    "summary": "记录 Live2D 软件心得",
-    "cover": "/blogs/live2d-note/bab67a1255a0d0da.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "watch-bloggers",
-    "title": "新年观察",
-    "tags": [
-      "总结"
-    ],
-    "date": "2026-02-25T16:40",
-    "summary": "新的一年，看看其它的技术博主最近在干嘛",
-    "cover": "/blogs/watch-bloggers/ff9a6df88fc0bbb4.webp",
-    "hidden": false,
-    "category": "总结"
-  },
-  {
-    "slug": "model-animation-note",
-    "title": "模型动画笔记",
-    "tags": [
-      "学习",
-      "建模"
-    ],
-    "date": "2026-02-03T11:40",
-    "summary": "骨骼与动画",
-    "cover": "/blogs/model-animation-note/0655bc33056c4af1.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "cartoon-note-render",
-    "title": "卡通人物建模笔记 · 三",
-    "tags": [
-      "学习",
-      "渲染"
-    ],
-    "date": "2026-01-29T22:06",
-    "summary": "渲染笔记",
-    "cover": "/blogs/cartoon-note-render/557a9db9106bcde2.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "cartoon-note-body",
-    "title": "卡通人物建模笔记 · 二",
-    "tags": [
-      "学习",
-      "建模"
-    ],
-    "date": "2026-01-29T16:02",
-    "summary": "身体建模笔记",
-    "cover": "/blogs/cartoon-note-body/a6cf63f4e4e7ac9c.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "cartoon-note-head",
-    "title": "卡通人物建模笔记",
-    "tags": [
-      "学习",
-      "建模"
-    ],
-    "date": "2026-01-28T17:01",
-    "summary": "头部线条记录",
-    "cover": "/blogs/cartoon-note-head/666668e4acc2d75c.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "math-graph",
-    "title": "数学图形工具",
-    "tags": [
-      "工具",
-      "数学"
-    ],
-    "date": "2026-01-23T14:45",
-    "summary": "工具记录",
-    "cover": "/blogs/math-graph/c826338d34ff54d0.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
     "slug": "daily-note",
     "title": "任务清单软件",
     "tags": [
@@ -125,31 +22,6 @@
     "category": "开源"
   },
   {
-    "slug": "love-island",
-    "title": "恋爱岛项目需求记录",
-    "tags": [
-      "开发",
-      "需求"
-    ],
-    "date": "2026-01-09T11:54",
-    "summary": "先记一下子",
-    "cover": "/blogs/love-island/6219a8726148dc27.jpg",
-    "hidden": false,
-    "category": "开源"
-  },
-  {
-    "slug": "electric-border",
-    "title": "电光边框效果",
-    "tags": [
-      "学习"
-    ],
-    "date": "2026-01-06T17:05",
-    "summary": "AI 学习边框特效",
-    "cover": "/blogs/electric-border/9b898d43a5a85684.webp",
-    "hidden": false,
-    "category": "代码实现"
-  },
-  {
     "slug": "driving-tour",
     "title": "年底的自驾游",
     "tags": [
@@ -160,30 +32,6 @@
     "cover": "/blogs/driving-tour/474f9e7a4c63084a.webp",
     "hidden": false,
     "category": ""
-  },
-  {
-    "slug": "kuangyeshidai",
-    "title": "狂野时代",
-    "tags": [
-      "影评",
-      "日常"
-    ],
-    "date": "2025-11-22",
-    "summary": "观《狂野时代》后感",
-    "cover": "/blogs/kuangyeshidai/e260bea5dbfda5b7.jpg",
-    "hidden": false
-  },
-  {
-    "slug": "liquid-grass",
-    "title": "好玩的液态玻璃",
-    "tags": [
-      "液态玻璃",
-      "ios"
-    ],
-    "date": "2025-11-21",
-    "summary": "很简单就能实现这个液态玻璃效果，真棒",
-    "cover": "/blogs/liquid-grass/0e7190ecaedc4930.png",
-    "category": "代码实现"
   },
   {
     "slug": "readme",
@@ -210,28 +58,6 @@
     "summary": "游戏难，又总会悸动",
     "cover": "/blogs/game-again/4425a1ea5cd869ec.jpg",
     "category": "总结"
-  },
-  {
-    "slug": "rewrite-blog-website",
-    "title": "我想重构Blog网站",
-    "tags": [
-      "重构blog网站"
-    ],
-    "date": "2025-11-11",
-    "summary": "这是重构blog网站的第一篇blog，终于把上个网站的blog 内容移动过来了。当然还有其它内容还没弄。",
-    "cover": "/blogs/rewrite-blog-website/7ec6838f38c9161e.png",
-    "category": "总结"
-  },
-  {
-    "slug": "negative-delta",
-    "title": "负数时差",
-    "tags": [
-      "bug",
-      "时间"
-    ],
-    "date": "2025-03-04",
-    "summary": "计算数据距离当前时间有多久，居然出现很多负数的反馈。",
-    "cover": "/blogs/negative-delta/930cc7ed94fb7777.jpg"
   },
   {
     "slug": "seo-summary",
