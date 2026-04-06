@@ -2,7 +2,7 @@
 	{
 		"name": "Vue3 组件库",
 		"year": 2025,
-		"description": "比较让人怀念的一个组件库了，那个时候每个前端程序员都想做一套自己的组件库，我也是。写出来的时候特别让自己开心，觉得好看，舒服。那时也第一次学会免费的 github/gitee pages 部署页面，但也倒腾半天，现在用 vercel 重新上线放着吧。",
+		"description": "组件库",
 		"image": "/images/vue-kit.webp",
 		"url": "http://archive-suni.vercel.app/#/",
 		"tags": [
