@@ -1,17 +1,5 @@
 [
 	{
-		"name": "Vue3 组件库",
-		"year": 2025,
-		"description": "组件库",
-		"image": "/images/vue-kit.webp",
-		"url": "http://archive-suni.vercel.app/#/",
-		"tags": [
-			"Vue",
-			"Library"
-		],
-		"github": "https://github.com/YYsuni/archive-suni"
-	},
-	{
 		"name": "AIflow-studio",
 		"year": 2026,
 		"image": "/images/project/e24fbb29d81aeccf.jpg",
