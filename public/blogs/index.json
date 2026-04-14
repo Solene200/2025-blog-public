@@ -23,44 +23,6 @@
     "category": "开源"
   },
   {
-    "slug": "driving-tour",
-    "title": "年底的自驾游",
-    "tags": [
-      "旅游"
-    ],
-    "date": "2026-01-05T11:50",
-    "summary": "琐碎的自驾游回忆",
-    "cover": "/blogs/driving-tour/474f9e7a4c63084a.webp",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "readme",
-    "title": "2025 Blog 的使用引导",
-    "tags": [
-      "开源"
-    ],
-    "date": "2025-11-16T08:00",
-    "summary": "2025-blog-public 项目的使用说明以及注意事项",
-    "cover": "/blogs/readme/9532a65cc32ca5eb.png",
-    "hidden": false,
-    "category": ""
-  },
-  {
-    "slug": "game-again",
-    "title": "又折腾一次游戏的记录心得",
-    "tags": [
-      "笔记",
-      "心得",
-      "游戏",
-      "学习"
-    ],
-    "date": "2025-11-14",
-    "summary": "游戏难，又总会悸动",
-    "cover": "/blogs/game-again/4425a1ea5cd869ec.jpg",
-    "category": "总结"
-  },
-  {
     "slug": "11-06",
     "title": "vscode使用技巧",
     "tags": [],
@@ -100,16 +62,6 @@
     "date": "2025-02-24",
     "summary": "不同设备有不同升级方式，容易报错",
     "cover": "/blogs/pnpm-upgrade/d3d0d5fee572546d.jpg"
-  },
-  {
-    "slug": "accept-encoding",
-    "title": "前端设置不了 Accept-Encoding Header",
-    "tags": [
-      "尝试"
-    ],
-    "date": "2023-06-30",
-    "summary": "网站资源一般采用 gzip 压缩后返回，这样会使文件大大减小。那么平常的 API 接口呢？",
-    "cover": "/blogs/accept-encoding/dae2219a32e22957.jpg"
   },
   {
     "slug": "css-colors",
