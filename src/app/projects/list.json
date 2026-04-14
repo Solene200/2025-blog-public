@@ -9,5 +9,17 @@
 			"React"
 		],
 		"github": "https://github.com/Solene200/aiflow-studio"
+	},
+	{
+		"name": "心灵奇旅soul",
+		"year": 2025,
+		"image": "blob:https://www.mistdawn1008.com/ab5f4523-4b37-4746-b8bf-75d366d3975e",
+		"url": "https://github.com/Solene200/soul",
+		"description": "AI驱动的康复心理陪伴平台",
+		"tags": [
+			"React"
+		],
+		"github": "https://github.com/Solene200/soul",
+		"npm": "无"
 	}
 ]
