@@ -8,5 +8,35 @@
 			"图片"
 		],
 		"stars": 4
+	},
+	{
+		"name": "nestJS官网中文",
+		"logo": "blob:https://www.mistdawn1008.com/ba200a7d-2885-48e9-bdc4-4d619f13bee3",
+		"url": "https://docs.nestjs.cn/introduction/",
+		"description": "nestJS官网",
+		"tags": [
+			"nestJS"
+		],
+		"stars": 4
+	},
+	{
+		"name": "Vercel",
+		"logo": "https://th.bing.com/th/id/OIP.3WrA7K7Em-hAg5BMvI4wlQHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+		"url": "https://vercel.com/solenes-projects-4a85d038",
+		"description": "Vercel我的部署看板",
+		"tags": [
+			"Vercel看板"
+		],
+		"stars": 3
+	},
+	{
+		"name": "Next.js",
+		"logo": "https://logowik.com/content/uploads/images/nextjs2106.logowik.com.webp",
+		"url": "https://www.nextjs.cn/",
+		"description": "Next.js的官网",
+		"tags": [
+			"Next.js"
+		],
+		"stars": 3
 	}
 ]
